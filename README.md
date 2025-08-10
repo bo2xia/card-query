@@ -13,7 +13,29 @@
 
 ## 快速开始
 
-### 方式一：Docker部署（推荐）
+### 方式一：本地部署（最简单）
+
+1. **下载项目文件**
+2. **运行本地部署脚本**
+   ```cmd
+   local-deploy.bat
+   ```
+3. **访问应用**
+   - 应用地址: http://localhost:5000
+   - 默认管理员: admin/admin123
+
+### 方式二：Docker快速部署
+
+1. **安装Docker Desktop**
+2. **运行快速部署脚本**
+   ```cmd
+   quick-deploy.bat
+   ```
+3. **访问应用**
+   - 应用地址: http://localhost:5000
+   - 默认管理员: admin/admin123
+
+### 方式三：Docker完整部署（生产环境）
 
 1. **克隆项目**
    ```bash
@@ -28,13 +50,13 @@
    ```
 
 3. **运行部署脚本**
-   
+
    Linux/Mac:
    ```bash
    chmod +x deploy.sh
    ./deploy.sh
    ```
-   
+
    Windows:
    ```cmd
    deploy.bat

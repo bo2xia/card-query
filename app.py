@@ -18,9 +18,16 @@ app = Flask(__name__)
 ENV = os.getenv('FLASK_ENV', 'development')
 DEBUG = ENV == 'development'
 
+# 确保数据目录存在
+data_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data')
+os.makedirs(data_dir, exist_ok=True)
+
+# 默认SQLite数据库路径
+default_db_path = f"sqlite:///{os.path.join(data_dir, 'app.db')}"
+
 app.config.update(
     SECRET_KEY=os.getenv('SECRET_KEY', 'dev-secret-key-change-in-production'),
-    SQLALCHEMY_DATABASE_URI=os.getenv('DATABASE_URL', 'sqlite:///app.db'),
+    SQLALCHEMY_DATABASE_URI=os.getenv('DATABASE_URL', default_db_path),
     SQLALCHEMY_TRACK_MODIFICATIONS=False,
     DEBUG=DEBUG
 )
