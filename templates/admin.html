@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理员仪表板</title>
+    <link href="/static/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); }
+        .container { max-width: 720px; margin-top: 2rem; }
+        .card { border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); }
+        .list-group-item { font-size: 1.25rem; transition: background-color 0.2s; }
+        .list-group-item:hover { background-color: #f8f9fa; }
+        .blue-bar { background-color: #007bff; height: 4px; margin-bottom: 1rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card p-4">
+            <nav class="nav mb-3">
+                <span class="navbar-text">欢迎，{{ session['admin'] | e }}！</span>
+                <a href="{{ url_for('logout') }}" class="nav-link text-danger">退出登录</a>
+            </nav>
+            <div class="blue-bar"></div>
+            <h1 class="text-center mb-4">管理员仪表板</h1>
+            <div class="list-group">
+                <a href="{{ url_for('accounts') }}" class="list-group-item list-group-item-action">管理账号</a>
+                <a href="{{ url_for('cards') }}" class="list-group-item list-group-item-action">管理卡密</a>
+                <a href="{{ url_for('batch_generate') }}" class="list-group-item list-group-item-action">批量生成卡密</a>
+                <a href="{{ url_for('change_password') }}" class="list-group-item list-group-item-action">修改密码</a>
+            </div>
+        </div>
+    </div>
+    <script src="/static/bootstrap.bundle.min.js"></script>
+</body>
+</html>

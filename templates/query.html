@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>卡密查询</title>
+    <link href="/static/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); }
+        .container { max-width: 720px; margin-top: 2rem; }
+        .card { border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); }
+        .form-control-lg { font-size: 1.25rem; padding: 0.75rem; }
+        .btn-lg { font-size: 1.25rem; padding: 0.75rem 1.5rem; }
+        .copy-btn { margin-left: 0.5rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card p-4">
+            <h1 class="text-center mb-4">卡密查询</h1>
+            {% if error %}
+                <div class="alert alert-danger">{{ error | e }}</div>
+            {% endif %}
+            {% if account %}
+                <div class="mb-3 d-flex justify-content-between">
+                    <p class="mb-0"><strong>到期时间:</strong> {{ expiry_date | e }}</p>
+                    <p class="mb-0"><strong>查询次数:</strong> {{ query_count }} / {{ max_query_count }}</p>
+                </div>
+                <div class="mb-3 d-flex align-items-center">
+                    <p class="me-2 mb-0"><strong>账号:</strong> {{ account | e }}</p>
+                    <button type="button" class="btn btn-outline-secondary btn-sm copy-btn" onclick="copyText('{{ account | e }}')">复制</button>
+                </div>
+                <div class="mb-3 d-flex align-items-center">
+                    <p class="me-2 mb-0"><strong>密码:</strong> {{ password | e }}</p>
+                    <button type="button" class="btn btn-outline-secondary btn-sm copy-btn" onclick="copyText('{{ password | e }}')">复制</button>
+                </div>
+            {% endif %}
+            <form method="get">
+                <div class="mb-3">
+                    <label for="card_key" class="form-label">卡密</label>
+                    <input type="text" name="card_key" id="card_key" class="form-control form-control-lg" placeholder="请输入卡密" required pattern="[A-Za-z0-9_-]{16}">
+                    <small class="form-text text-muted">卡密为16位字母、数字或下划线</small>
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg w-100">查询</button>
+            </form>
+        </div>
+    </div>
+    <script src="/static/bootstrap.bundle.min.js"></script>
+    <script>
+        function copyText(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('已复制到剪贴板');
+            }).catch(err => {
+                console.error('复制失败:', err);
+                alert('复制失败，请手动复制');
+            });
+        }
+    </script>
+</body>
+</html>
